@@ -222,7 +222,7 @@ func (c *Conn) doRequestImpl(
 		c.auth.TokenProvider.SetHttp(c.client)
 		token, tokenType, tkerr := c.auth.TokenProvider.AcquireToken(ctx)
 		if tkerr != nil {
-			return nil, nil, errors.ES(op, errors.KInternal, "Error while getting token : %s", tkerr)
+			return nil, nil, fmt.Errorf("Error while getting token: %w", tkerr)
 		}
 		headers.Add("Authorization", fmt.Sprintf("%s %s", tokenType, token))
 	}

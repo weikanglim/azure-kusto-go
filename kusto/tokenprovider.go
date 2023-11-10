@@ -31,14 +31,14 @@ func (tkp *TokenProvider) AcquireToken(ctx context.Context) (string, string, err
 	if tkp.initOnce != nil {
 		_, err := tkp.initOnce.DoWithInit()
 		if err != nil {
-			return "", "", err
+			return "", "", fmt.Errorf("init: %w", err)
 		}
 	}
 
 	if tkp.tokenCred != nil {
 		token, err := tkp.tokenCred.GetToken(ctx, policy.TokenRequestOptions{Scopes: tkp.scopes})
 		if err != nil {
-			return "", "", err
+			return "", "", fmt.Errorf("getting token: %w", err)
 		}
 		return token.Token, tkp.tokenScheme, nil
 	}
