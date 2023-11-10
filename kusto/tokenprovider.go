@@ -59,7 +59,7 @@ func (tkp *TokenProvider) setInit(kcsb *ConnectionStringBuilder, f func(*CloudIn
 	tkp.initOnce = utils.NewOnceWithInit(func() (*tokenWrapperResult, error) {
 		wrapper, err := tokenWrapper(kcsb, func() *http.Client { return tkp.http.Load().(*http.Client) }, f)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("token wrapper: %w", err)
 		}
 
 		tkp.tokenCred = wrapper.credential

@@ -582,7 +582,7 @@ func stateError(s *scanner, c byte) int {
 func (s *scanner) error(c byte, context string) int {
 	s.step = stateError
 	s.err = &SyntaxError{"invalid character " + quoteChar(c) + " " + context, s.bytes}
-	return scanError
+	panic(s.err)
 }
 
 // quoteChar formats c as a quoted character literal
