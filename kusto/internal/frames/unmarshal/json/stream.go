@@ -476,7 +476,7 @@ func (dec *Decoder) tokenError(c byte) (Token, error) {
 	case tokenObjectComma:
 		context = " after object key:value pair"
 	}
-	panic(&SyntaxError{"invalid character " + quoteChar(c) + context, dec.InputOffset()})
+	return nil, &SyntaxError{"invalid character " + quoteChar(c) + context, dec.InputOffset()}
 }
 
 // More reports whether there is another element in the
